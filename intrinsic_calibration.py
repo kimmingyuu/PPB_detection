@@ -112,14 +112,14 @@ print("=" * 20)
 
 start_time = time.process_time()
 mapx, mapy = cv2.initUndistortRectifyMap(camera_matrix, dist_coeffs, None, None, image_size, cv2.CV_32FC1)
-#print(dataset_path_list)
+print("dataset path:", dataset_path_list)
 for index, image_path in enumerate(dataset_path_list):
     image = cv2.imread(image_path, cv2.IMREAD_COLOR)
     image_undist = cv2.remap(image, mapx, mapy, cv2.INTER_LINEAR)
 
     cv2.imwrite(os.path.join("calibrated", str(index+1).zfill(4) + ".jpg"), image_undist)
-    #cv2.imshow("image_undist", image_undist)
-    #cv2.waitKey(0)
+    cv2.imshow("image_undist", image_undist)
+    cv2.waitKey(0)
 end_time = time.process_time()
 print(end_time - start_time)
 
