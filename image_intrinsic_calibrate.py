@@ -102,7 +102,7 @@ for i, box in enumerate(boxes):    # 아래 위 오른쪽 왼쪽
 # cv2.imshow("image_undist", image_undist)
 # cv2.waitKey(0)
 
-# get_2dmap(dis)
+get_2dmap(dis)
 
 cv2.imshow("image_undist3", image)
 cv2.waitKey(0)
