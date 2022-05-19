@@ -1,3 +1,4 @@
+import enum
 from turtle import width
 import cv2
 import glob
@@ -19,7 +20,7 @@ def get_2dmap(dis):
     plt.plot(x,z,'o')
     plt.xlabel('x cm')
     plt.ylabel('z cm')
-    plt.axis([-200, 200, 0.0 , 200])
+    plt.axis([-50, 50, 0.0 , 100])
     plt.show()
 
 camera_matrix = np.array( [[348.26309945, 0., 332.530534],
@@ -41,10 +42,15 @@ image_size = (640,480)
 # # cv2.imshow("image_undist", image_undist)
 # cv2.waitKey(0)
 
-image = cv2.imread("image_undist.png", cv2.IMREAD_COLOR)
-boxes = [[0.510156, 0.723958, 0.048438, 0.068750],[0.507812, 0.622917, 0.025000, 0.033333]]
+image = cv2.imread("image_undist3.png", cv2.IMREAD_COLOR)
+boxes = [[0.514844, 0.705208, 0.045312, 0.068750],
+        [0.511719, 0.606250, 0.023438, 0.033333],
+        [0.774219, 0.697917, 0.051562, 0.066667],
+        [0.255469, 0.712500, 0.048438, 0.066667]]
 dis = []
-for box in boxes:    
+
+color = [(255,0,0), (0,255,0), (0,0,255), (255,0,255)]
+for i, box in enumerate(boxes):    # 아래 위 오른쪽 왼쪽
     center_x, center_y, width, height = box[0], box[1], box[2], box[3] 
     center_x *= 640
     center_y *= 480
@@ -60,7 +66,8 @@ for box in boxes:
     CAMERA_HEIGHT = 0.1475
     FOVh = (135.4-42)/2
 
-    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255,0,0), 3)
+    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color[i], 3)
+    cv2.putText(image, f"{i}", (xmin, ymin+25), 1, 2, (0,0,0), 2)
     # cv2.imshow("image_undist", image_undist)
     # cv2.waitKey(0)
 
@@ -77,11 +84,11 @@ for box in boxes:
     if azimuth < 0:
         azimuth *= -1
 
-
+    print("\n\n index : ", i)
     print("azimuth", azimuth)
     print("d : ", d)
     print("dz : ", dz)
-    print("dz_alph : ", dz*(1.09)**2)#1.12
+    print("dz_alph : ", dz*(1.025)**2)#1.12
     print("dx : ", dx)
     # print("correct_azimuth : ", 26.56 - azimuth)
     # print("correct_d : ", 50.31 - d)
@@ -95,16 +102,7 @@ for box in boxes:
 # cv2.imshow("image_undist", image_undist)
 # cv2.waitKey(0)
 
-get_2dmap(dis)
+# get_2dmap(dis)
 
-cv2.imshow("image_undist", image)
+cv2.imshow("image_undist3", image)
 cv2.waitKey(0)
-
-
-
-
-
-
-
-
-
