@@ -144,4 +144,7 @@
 <img src="images/result.png" width=800>   
 
 
-인식등수 **5등**, 거리등수 **2등 👏👏**
+인식등수 **5등**, 거리등수 **2등 👏👏**   
+
+## 참고
+-[노션 페이지](https://funny-biplane-427.notion.site/d42b61c3fab94fee93dc2c8ff4366978)
